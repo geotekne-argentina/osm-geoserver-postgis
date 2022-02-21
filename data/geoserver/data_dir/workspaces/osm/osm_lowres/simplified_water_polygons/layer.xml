@@ -1,0 +1,16 @@
+<layer>
+  <name>simplified_water_polygons</name>
+  <id>LayerInfoImpl-7c55092f:164b291b05d:5880</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-5b43a54c:164ac5f5cab:4d35</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl-7c55092f:164b291b05d:587f</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateModified>2020-03-06 14:18:44.76 UTC</dateModified>
+</layer>

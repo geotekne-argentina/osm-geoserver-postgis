@@ -1,0 +1,16 @@
+<layer>
+  <name>osm_places</name>
+  <id>LayerInfoImpl--701ea3ec:164a226a811:-7fe2</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-5b43a54c:164ac594200:-5a66</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--701ea3ec:164a226a811:-7fe3</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateModified>2020-03-06 14:15:57.303 UTC</dateModified>
+</layer>

@@ -1,0 +1,16 @@
+<layer>
+  <name>simplified_land_polygons</name>
+  <id>LayerInfoImpl-7c55092f:164b291b05d:587e</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-5b43a54c:164ac5f5cab:4d33</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl-7c55092f:164b291b05d:587d</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateModified>2020-03-06 14:17:22.93 UTC</dateModified>
+</layer>
