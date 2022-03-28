@@ -1,67 +1,63 @@
 # osm-geoserver-postgis
-Docker-compose que ensambla los componentes necesarios para implementar una instancia Geoserver que publica las capas de OpenStreetMap (OSM) de forma local en un único host/máquina (Postgis es requerido para almacenar las capas de OSM).
+Docker-compose that assembles the necessary components to implement a Geoserver instance that publishes the OpenStreetMap (OSM) layers locally on a single host/machine (Postgis is required to store the OSM layers).
 
-Se siguen las instrucciones de este proyecto como base [OSM-Styles](https://github.com/geosolutions-it/osm-styles).
+Instructions for this project are based on this repository [OSM-Styles](https://github.com/geosolutions-it/osm-styles), but making a simpler execution plan.
+
+The steps and scripts are intended to run in the context of Linux/Mac environments. TO-DO: Windows.
 
 ## Pasos
 
-Con los scripts que se incluyen en la carpeta hemos simplificado los pasos a seguir para desplegar una solución que incluye un Geoserver publicando las capas de OSM (almacenadas en un Postgis), a través de servicio WMS. 
+With the scripts that are included in the folder we have simplified the steps to deploy a solution that includes a Geoserver instance publishing the OSM layers (stored in a Postgis), using WMS service.
 
-Esta simplificación está condicionada a que el despliegue se realice especificamente en un mismo host (en el cual se ejecutará el docker-compose que inicializa el sistema). En caso de tener que hacer un despligue en mas de un host, hay que contemplar algunos aspectos técnicos (los mismos que llevar de docker-compose a swarm o a kubernetes).
+This simplification will work fine when deployment is done on the same host (on which the docker-compose that initializes the system will be executed). If you have to deploy on more than one host, you have to consider some technical aspects (basically, the same as moving from docker-compose to swarm or kubernetes, so you will have to adapt it).
 
-La idea es mantener el caso de uso simple (debajo esta el diagrama de contenedores y volumenes a crear).
+The idea is to keep the use case simple (below is the diagram of containers and volumes to create).
 
-Los pasos son:
+The steps are:
 
-1. Instalar [git](https://github.com/git-guides/install-git), [docker](https://docs.docker.com/engine/install/ubuntu/) y [docker-compose](https://docs.docker.com/compose/install/) en la máquina host.
+1. Install [git](https://github.com/git-guides/install-git), [docker](https://docs.docker.com/engine/install/ubuntu/) y [docker-compose](https://docs.docker.com/compose/install/) on the host machine.
 
-   Ejemplo comandos basado en distribución Ubuntu:
+2. Download the repository of this project.
 
-   a. **sudo apt update**
+   a. **git clone https://github.com/geotekne/osm-geoserver-postgis.git**
 
-   b. **sudo apt install git**
+3. Download the OSM files per country/region from the [GeoFabrik](https://download.geofabrik.de/) portal (PBF extension files) that you want to import into the Postgis instance (these files keep the high-resolution vector information/detail), and **place them in the ./osm-geoserver-postgis/pbfs** folder found in the git repository.
 
-   c. **sudo apt-get install docker-ce docker-ce-cli containerd.io**
+   a. Example:  **wget https://download.geofabrik.de/south-america-latest.osm.pbf**
 
-   d. **sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose**
-
-   e. **sudo chmod +x /usr/local/bin/docker-compose**
-
-2. Descargar el repositorio git de este proyecto.
-
-   a. **git clone https://github.com/geotekne/docker-compose-samples.git**
-
-3. Descargar los archivos OSM por país/región del portal de [GeoFabrik](https://download.geofabrik.de/) (archivos extensión PBF) que se deseen importar en la instancia Postgis (estos archivos mantienen la información vectorial de alta resolución/detalle), y **colocarlos en la carpeta ./osm-geoserver-postgis/pbfs** que se encuentra en el repositorio git.
-
-   a. Ejemplo:  **wget https://download.geofabrik.de/south-america-latest.osm.pbf**
-
-4. Ejecutar el comando **./startup.sh**  (nota: este comando inicializa las instancias de contenedores docker, descarga el archivo de low-resolution de datos de OSM - gentileza de [Geosolutions](https://www.geosolutionsgroup.com/) -, importa los archivos PBF del paso 3 en la base de datos PostGIS y una vez importados los mueve a la carpeta ./osm-geoserver-postgis/pbfs/imported).
+4. Run the command **./startup.sh** (note: this command initializes the docker container instances, downloads the modified low-resolution OSM data file (*see footnote), imports the PBF files from step 3 in the PostGIS database and once imported it moves them to the ./osm-geoserver-postgis/pbfs/imported folder). **IMPORTANT: ensure that mapped ports (80, 8080 and 5432) in your host are available and free to use.**
 
    a.  **./osm-geoserver-postgis/startup.sh**
 
-Observaciones : 
+Observations :
 
-- Cada vez que se inicializa el docker-compose, se valida si en la carpeta de PBFs hay archivos a importar, y se reinicia la información de las capas de OSM. Solo en el caso de tener la carpeta vacia, es decir sin archivos PBF, es que no se resetea la información existente. 
-- En el caso de querer sumar nuevos PBFs contemplando mantener la información ya importada, se sugiere copiar aquellos archivos que ya se hubieran importado (carpeta /pbfs/imported) a la carpeta ./pbfs para que se acumulen las nuevas capas de datos junto con las previas. Luego, se deberá proceder a detener el docker-compose (./osm-geoserver-postgis/shutdown.sh) y reiniciar con ./startup.sh .
-- Los pasos mencionados en parrafo anterior, forzarán a una reinicialización de la instancia OSM (dejandola inactiva). Si bien no es la situación ideal, es la forma más simple de explicar los pasos a ejecutar. Opcionalmente, el usuario puede chequear los scripts (./startup.sh y ./imposm/import-pg.sh) los cuales brindan mas detalle acerca de como hacer la misma labor sin afectar a la disponibilidad del sistema.
+- OSM Data reset: Every time the docker-compose is initialized, it is validated if there are files to import in the PBFs folder, and the information of the OSM layers is reset. Only in the case of having the folder empty, that is to say without PBF files, is that the existing information is not reset.
+- In case you want to add new PBFs keeping the information already imported, it is suggested to copy those files that have already been imported (/pbfs/imported folder) to the ./pbfs folder so that the new data layers are accumulated together with the previous ones. Then, you will need to stop docker-compose (./osm-geoserver-postgis/shutdown.sh) and restart with ./startup.sh .
+- The steps mentioned in the previous paragraph will force a reinitialization of the OSM instance (leaving it inactive). Although it is not the ideal situation, it is the simplest way to explain the steps to be executed. Optionally, the user can check the scripts (./startup.sh and ./imposm/import-pg.sh) which provide more detail on how to do the same job without affecting system availability.
+
+(*) The initial version of this file comes from this repository https://github.com/geosolutions-it/osm-styles (in the README you will find the link to download it from Dropbox), but it has errors/imperfections in certain areas - product of the treatment to lower the resolution - that have been corrected.
 
 
 
-## Detalle Técnico
+## Technical Details
 
-- Una instancia de cada servicio
-- Imagenes utilizadas
+- One instance of each service
+- Images used
   - geoserver: geotekne/geoserver:lime-2.16.2
-    - Incluye los plugins CSS y Pregeneralized features para lograr renderizar las capas de OSM como corresponde.
-    - TO-DO: la imagen se basa en kartoza/geoserver incluyendo los plugins mencionados habilitados, pero eso lleva a una imagen docker de 1.9 GB (demasiado). Hay que mejorar esto.
+    - The docker-compose defines the use of the CSS and Pregeneralized features plugins to render the OSM layers accordingly.
+    - TO-DO: the mentioned image is based on kartoza/geoserver, which has the mentioned plugins embedded, but that leads to a docker image of size equal to 1.9 GB (which is too much). The next improvement is to generate a new version of geoserver:lime that includes the necessary plugins and no more than that.
   - postgis: kartoza/postgis:12.1
-    - Utilizado para almacenar las capas de OSM.
-- Volumen de datos de Geoserver mapeado a carpeta en host
-- Volumen de datos de Postgis mapeado a volumen pgdata en docker
-- Puertos mapeados en host:
+    - Used to store the OSM layers.
+  - wmsclient: nginx:1.21.3-alpine
+    - That shows in a simple example, an html+css+js web application, the access to live OSM data or to the OSM in local instance that we have created. Accessible via browser at http://localhost:80
+- Geoserver data volume mapped to folder on host
+- Postgis data volume mapped to pgdata volume in docker
+- Wmsclient data volume mapped to folder containing the sample web application.
+- Ports mapped on host:
   - geoserver: 8080
   - postgis: 5432
+  - wmsclient:80
 
-## Diagrama
+## Diagram
 
 ![](./diagram.png)
