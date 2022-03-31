@@ -5,7 +5,7 @@ Instructions for this project are based on this repository [OSM-Styles](https://
 
 The steps and scripts are intended to run in the context of Linux/Mac environments. TO-DO: Windows.
 
-## Pasos
+## Steps
 
 With the scripts that are included in the folder we have simplified the steps to deploy a solution that includes a Geoserver instance publishing the OSM layers (stored in a Postgis), using WMS service.
 
