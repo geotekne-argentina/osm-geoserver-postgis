@@ -5,6 +5,10 @@ Se siguen las instrucciones de este proyecto como base [OSM-Styles](https://gith
 
 Los pasos y scripts están pensados para ejecutar en contexto de entornos Linux/Mac. TO-DO: Windows.
 
+En la siguiente imagen puede ver la aplicación de demostración en acción. Tenga en cuenta que puede navegar por la versión de Internet de OSM y, al cambiar a la instancia local de OSM solo en la región de Surinam verá detalles en alta resolución (puede ampliarla a la cobertura global deseada, solo tendrá que ingestar el dataset de datos global de OSM). Explicaciones a continuación.
+
+![muestra](./img/osm-geoserver-postgis-optimized.gif)
+
 ## Pasos
 
 Con los scripts que se incluyen en la carpeta hemos simplificado los pasos a seguir para desplegar una solución que incluye un Geoserver publicando las capas de OSM (almacenadas en un Postgis), a través de servicio WMS. 

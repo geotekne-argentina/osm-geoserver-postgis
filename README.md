@@ -5,6 +5,10 @@ Instructions for this project are based on this repository [OSM-Styles](https://
 
 The steps and scripts are intended to run in the context of Linux/Mac environments. TO-DO: Windows.
 
+On following image you can see the demo application in action. Note that you can browse the OSM Internet version, and switching to the OSM Local instance only in the region of Suriname you will see details on the high-resolution (you can extent it to global coverage of desired, just you will need to ingest the full global dataset of OSM files). Explanations below.
+
+![sample](./img/osm-geoserver-postgis-optimized.gif)
+
 ## Steps
 
 With the scripts that are included in the folder we have simplified the steps to deploy a solution that includes a Geoserver instance publishing the OSM layers (stored in a Postgis), using WMS service.
