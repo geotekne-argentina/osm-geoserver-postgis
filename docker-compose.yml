@@ -1,14 +1,10 @@
 version: '3'
-services:
-  
+services: 
   geoserver:
-    image: 'geotekne/geoserver:lime-buster-2.16.2'
+    image: 'geotekne/geoserver:lime-alpine-2.16.2'
     hostname: geoserver
     env_file:
       - ./geoserver.env
-    environment:
-      - STABLE_EXTENSIONS=css-plugin,feature-pregeneralized-plugin
-      - GEOSERVER_DATA_DIR=/var/local/geoserver
     ports:
       - "8080:8080"
     volumes:
@@ -34,10 +30,19 @@ services:
       - ./postgis.env
     volumes:
       - 'pgdata:/var/lib/postgresql'
-    ports:
-      - "5432:5432"
+    expose:
+      - '5432'
     restart: on-failure
+
+  imposm-worker:
+    image: 'geotekne/imposm-worker:1.0.0'
+    hostname: imposm-worker
+    environment:
+      - PARAMETERS=-i /pbfs -c osm-geoserver-postgis_postgis -v 12.1 -p 5432 -u docker -w docker -d gis
+    volumes:
+      - './pbfs/:/pbfs'
+    depends_on:
+      - postgis
 
 volumes: 
      pgdata:
-
