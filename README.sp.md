@@ -1,4 +1,7 @@
 # osm-geoserver-postgis
+
+**TODO: actualizacion de documentacion en progreso.**
+
 Docker-compose que ensambla los componentes necesarios para implementar una instancia Geoserver que publica las capas de OpenStreetMap (OSM) de forma local en un único host/máquina (Postgis es requerido para almacenar las capas de OSM).
 
 Se siguen las instrucciones de este proyecto como base [OSM-Styles](https://github.com/geosolutions-it/osm-styles), pero llevandolo a un plano de ejecución más simple.
