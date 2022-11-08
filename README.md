@@ -22,26 +22,32 @@ This simplification will work fine when deployment is done on the same host (on 
 
 The idea is to keep the use case simple (below is the diagram of containers and volumes to create).
 
-Preconditions:
+**Preconditions:**
 
 1. Install [git](https://github.com/git-guides/install-git), [docker](https://docs.docker.com/engine/install/ubuntu/) y [docker-compose](https://docs.docker.com/compose/install/) on the host machine.
 
 2. Download the repository of this project.
 
-   a. **git clone https://github.com/geotekne-argentina/osm-geoserver-postgis**
+   ```
+   git clone https://github.com/geotekne-argentina/osm-geoserver-postgis
+   ```
 
 3. Optional: edit file setup-datasets.sh and select which file to download (from GeoFabrik, https://download.geofabrik.de/), otherwise default demo will download Suriname PBF file.
 
-Steps:
+**2 Steps**
 
 1. Execute setup-datasets.sh script
 
-   **./osm-geoserver-postgis/setup-datasets.sh**
+   ```
+   ./osm-geoserver-postgis/setup-datasets.sh
+   ```
 
 2. Once the datasets setup is finished, then execute startup.sh script
 
-   **./osm-geoserver-postgis/startup.sh**
- 
+   ```
+   ./osm-geoserver-postgis/startup.sh
+   ```
+
 **IMPORTANT:**
  - ensure that mapped ports (80 and 8080) in your host are available and free to use.
  - remember to run the ./setup-datasets.sh script so you will be downloading the LOW resolution file.
