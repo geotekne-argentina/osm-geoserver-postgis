@@ -1,6 +1,6 @@
 # osm-geoserver-postgis
 
-**Get your preferred OSM dataset (ie. country) running in a local Geoserver instance with only 2 commands and avoid any dependence on an external provider.**
+**Get your preferred OSM dataset (ie. country) running in a local Geoserver instance with only 2 commands.**
 
 <a href="https://www.youtube.com/watch?v=XpFxNAVAy3k" rel="video">![sample](./img/osm-geoserver-postgis-optimized.gif)</a>
 
