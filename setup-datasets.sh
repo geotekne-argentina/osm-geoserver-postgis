@@ -1,4 +1,7 @@
 #!/bin/bash
+# include config
+source ./config.sh
+
 echo -e "\n Setup High and Low resolution datasets."
 
 DATAFOLDER=./data/geoserver/data_dir/data
@@ -13,10 +16,10 @@ if [ ! -f "$FILE" ]; then
     mv ./README.txt $DATAFOLDER/README.txt
 fi
 
-# Download my Selection PBF (ie. Suriname)
-FILE=./pbfs/suriname-latest.osm.pbf
+# Download my Selection PBF (defined in config.sh file)
+FILE=./pbfs/selection.osm.pbf
 if [ ! -f "$FILE" ]; then
     echo -e "\n ----- OSM High resolution file ($FILE) does not exist."
     echo -e "\n ----- Download and configure file in data folder."
-    curl -k "https://download.geofabrik.de/south-america/suriname-latest.osm.pbf" -o $FILE
+    curl -k $PBF_URL -o $FILE
 fi
