@@ -32,7 +32,7 @@ The idea is to keep the use case simple (below is the diagram of containers and 
    git clone https://github.com/geotekne-argentina/osm-geoserver-postgis
    ```
 
-3. Optional: edit file setup-datasets.sh and select which file to download (from GeoFabrik, https://download.geofabrik.de/), otherwise default demo will download Suriname PBF file.
+3. Optional: edit file **config.sh** and select which PBF file to download (from GeoFabrik, https://download.geofabrik.de/), otherwise default demo will download Suriname PBF file.
 
 **2 Steps**
 
