@@ -26,7 +26,7 @@ La idea es mantener el caso de uso simple (a continuación se muestra el diagram
 
 Nota: puede chequearse estado de precondiciones ejecutando el siguiente script **check-preconditions.sh**
 
-1. Instale [git](https://github.com/git-guides/install-git), [docker](https://docs.docker.com/engine/install/ubuntu/) y [docker compose ( V2)](https://docs.docker.com/compose/install/) en la máquina host.
+1. Instale [git](https://github.com/git-guides/install-git), [docker](https://docs.docker.com/engine/install/ubuntu/) y [docker compose (V2)](https://docs.docker.com/compose/install/) en la máquina host.
 
 2. Descarga el repositorio de este proyecto.
 
