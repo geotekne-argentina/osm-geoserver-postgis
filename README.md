@@ -18,13 +18,15 @@ Note that you can browse the OSM Internet version or the OSM Local instance for 
 
 With the scripts that are included in the folder we have simplified the steps to deploy a solution that includes a Geoserver instance publishing the OSM layers (stored in a Postgis), using WMS service.
 
-This simplification will work fine when deployment is done on the same host (on which the docker-compose that initializes the system will be executed). If you have to deploy on more than one host, you have to consider some technical aspects (basically, the same as moving from docker-compose to swarm or kubernetes, so you will have to adapt it).
+This simplification will work fine when deployment is done on the same host (on which the docker compose that initializes the system will be executed). If you have to deploy on more than one host, you have to consider some technical aspects (basically, the same as moving from docker compose to swarm or kubernetes, so you will have to adapt it).
 
 The idea is to keep the use case simple (below is the diagram of containers and volumes to create).
 
 **Preconditions:**
 
-1. Install [git](https://github.com/git-guides/install-git), [docker](https://docs.docker.com/engine/install/ubuntu/) y [docker-compose](https://docs.docker.com/compose/install/) on the host machine.
+Note: you can check preconditions executing script **check-preconditions.sh**
+
+1. Install [git](https://github.com/git-guides/install-git), [docker](https://docs.docker.com/engine/install/ubuntu/) and [docker compose (V2)](https://docs.docker.com/compose/install/) on the host machine.
 
 2. Download the repository of this project.
 
@@ -54,7 +56,7 @@ The idea is to keep the use case simple (below is the diagram of containers and 
 
 Observations :
 
-- OSM Data reset: Every time the docker-compose is initialized, it is validated if there are files to import in the PBFs folder, and so the information of the OSM layers is reset. Only in the case of having the folder empty, that is to say without PBF files, is that the existing information on the pgdata volume will not be reset. So we suggest to run the ./setup-datasets.sh script at least one time, and then to add your PBFs files in the ./pbfs folder. After first execution of ./start.sh script (that will trigger the import process) we suggest to remove the PBFs files from the ./pbfs folder otherwise the import process will execute every time you start the docker composition)
+- OSM Data reset: Every time the docker compose is initialized, it is validated if there are files to import in the PBFs folder, and so the information of the OSM layers is reset. Only in the case of having the folder empty, that is to say without PBF files, is that the existing information on the pgdata volume will not be reset. So we suggest to run the ./setup-datasets.sh script at least one time, and then to add your PBFs files in the ./pbfs folder. After first execution of ./start.sh script (that will trigger the import process) we suggest to remove the PBFs files from the ./pbfs folder otherwise the import process will execute every time you start the docker composition)
 
 (*) The initial version of this file comes from this repository https://github.com/geosolutions-it/osm-styles (in the README you will find the link to download it from Dropbox), but it has errors/imperfections in certain areas - product of the treatment to lower the resolution - that have been corrected.
 
@@ -64,7 +66,7 @@ Observations :
 - One instance of each service
 - Images used
   - geoserver: geotekne/geoserver:lime-alpine-2.16.2
-    - The docker-compose defines the use of the CSS and Pregeneralized features plugins to render the OSM layers accordingly.
+    - The docker compose defines the use of the CSS and Pregeneralized features plugins to render the OSM layers accordingly.
   - postgis: kartoza/postgis:12.1
     - Used to store the OSM layers.
   - wmsclient: nginx:1.21.3-alpine
