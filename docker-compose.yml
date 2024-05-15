@@ -1,14 +1,16 @@
 version: '3'
 services: 
   geoserver:
-    image: 'geotekne/geoserver:lime-alpine-2.16.2'
+    #image: 'geotekne/geoserver:lime-alpine-2.16.2'
+    image: 'geotekne/geoserver:lime-buster-2.16.2'
     hostname: geoserver
     env_file:
       - ./geoserver.env
     ports:
       - "8080:8080"
     volumes:
-      - './data/geoserver/data_dir/:/var/local/geoserver'
+      #- './data/geoserver/data_dir/:/var/local/geoserver'
+      - './data/geoserver/data_dir/:/opt/geoserver/data_dir'
     depends_on:
       - postgis
     restart: on-failure
