@@ -1,1 +1,3 @@
 data/geoserver/data_dir/cluster/geoserver/
+data/geoserver/**/*.bak
+data/geoserver/**/*.orig
